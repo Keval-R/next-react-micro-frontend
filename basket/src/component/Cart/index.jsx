@@ -1,7 +1,9 @@
-'use client'
+"use client";
 import React from "react";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Row, Space, Table, Typography } from "antd";
+import { store } from "host/hostStore";
+import { useSelector, useDispatch } from "react-redux";
 
 const { Text, Title } = Typography;
 
@@ -77,10 +79,18 @@ const columns = [
   {
     title: "Action",
     key: "action",
-    render: () => (
+    render: (_, product) => (
       <Space size="middle">
-        <Button danger>
-          <DeleteOutlined />
+        <Button
+          danger
+          onClick={() => {
+            store.dispatch({
+              type: "products/removeProduct",
+              payload: product,
+            });
+          }}
+        >
+          <DeleteOutlined style={{ fontSize: "16px" }} />
         </Button>
       </Space>
     ),
@@ -88,13 +98,19 @@ const columns = [
 ];
 
 const Cart = () => {
+  const products = useSelector((state) => state.products) ?? [];
+
   return (
     <div>
       <Row justify="center" style={{ padding: "20px" }}>
         <Title level={2}>Basket List</Title>
       </Row>
 
-      <Table columns={columns} scroll={{ x: "max-content" }} dataSource={[]} />
+      <Table
+        columns={columns}
+        scroll={{ x: "max-content" }}
+        dataSource={products}
+      />
     </div>
   );
 };

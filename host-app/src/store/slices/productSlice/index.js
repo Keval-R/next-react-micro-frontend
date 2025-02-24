@@ -10,7 +10,7 @@ const productSlice = createSlice({
       }
     },
     removeProduct: (state, action) => {
-      return state.filter((product) => product.id !== action.payload);
+      return state.filter((product) => product.id !== action.payload?.id);
     },
   },
 });

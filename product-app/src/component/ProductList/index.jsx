@@ -3,12 +3,14 @@ import React from "react";
 
 import { useGetProductsQuery } from "@/api/productApi";
 import { Button, Row, Space, Table, Typography } from "antd";
-import { addProduct } from "host/hostStore";
-import { useDispatch } from "react-redux";
+import { store } from "host/hostStore";
 const { Text, Title } = Typography;
+import { useSelector, useDispatch } from "react-redux";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 const ProductList = () => {
   const dispatch = useDispatch();
+  const cartProducts = useSelector((state) => state.products);
 
   const columns = [
     {
@@ -87,11 +89,17 @@ const ProductList = () => {
           <Space size="middle">
             <Button
               type="primary"
+              disabled={cartProducts.some(
+                (cartProduct) => cartProduct.id === product?.id
+              )}
               onClick={() => {
-                dispatch(addProduct(product));
+                store.dispatch({
+                  type: "products/addProduct",
+                  payload: product,
+                });
               }}
             >
-              Add
+              <PlusCircleOutlined  style={{ fontSize: '18px' }} />
             </Button>
           </Space>
         );

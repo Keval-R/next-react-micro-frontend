@@ -1,19 +1,32 @@
+import { defineConfig } from "@rsbuild/core";
+import { pluginReact } from "@rsbuild/plugin-react";
 
-import { defineConfig } from '@rsbuild/core';
-import { pluginReact } from '@rsbuild/plugin-react';
+import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";
 
-import { pluginModuleFederation } from '@module-federation/rsbuild-plugin';
+const isServer = typeof window === "undefined";
 
 export default defineConfig({
-  plugins: [pluginReact(),
+  plugins: [
+    pluginReact(),
     pluginModuleFederation({
-      name: 'basket',
+      name: "basket",
       exposes: {
-        './Cart': './src/component/Cart',
+        "./Cart": "./src/component/Cart",
       },
-      shared: ['react', 'react-dom'],
-    }),],
-    server: {
-      port: 3002,
-    },
+      remotes: {
+        host: `host@http://localhost:3000/_next/static/${
+          isServer ? "ssr" : "chunks"
+        }/remoteEntry.js`,
+      },
+      shared: {
+        react: { singleton: true, requiredVersion: false },
+        "react-dom": { singleton: true, requiredVersion: false },
+        "@reduxjs/toolkit": { singleton: true, requiredVersion: false },
+        "react-redux": { singleton: true, requiredVersion: false },
+      },
+    }),
+  ],
+  server: {
+    port: 3002,
+  },
 });
