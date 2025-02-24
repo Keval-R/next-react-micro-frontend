@@ -2,6 +2,10 @@ import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense, lazy } from "react";
 import dynamic from "next/dynamic";
+import { Drawer } from "antd";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 const ProductList = lazy(() => import("remote/ProductList", { ssr: false }));
 const CartList = dynamic(() => import("basket/Cart"), { ssr: false });
 const geistSans = Geist({
@@ -15,6 +19,12 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const visible = useSelector((state) => state.drawer.visible);
+  const onClose = () => {
+    dispatch({ type: 'drawer/closeDrawer' })
+  };
+
   return (
     <>
       <Head>
@@ -23,11 +33,19 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={` ${geistSans.variable} ${geistMono.variable}`}>
+      <div className={`${geistSans.variable} ${geistMono.variable}`}>
         <ProductList />
-        <Suspense fallback="Loading Remote Component...">
-          <CartList />
-        </Suspense>
+        <Drawer
+          title="Your Cart"
+          placement="right"
+          width={600}
+          onClose={onClose}
+          visible={visible}
+        >
+          <Suspense fallback="Loading Cart...">
+            <CartList />
+          </Suspense>
+        </Drawer>
       </div>
     </>
   );
