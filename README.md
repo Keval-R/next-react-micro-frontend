@@ -17,22 +17,22 @@ Ensure you have **Node.js (v16+)** and **npm/yarn** installed.
 ### Install Dependencies
 Navigate into each project directory and install dependencies:
 ```sh
-cd host && npm install
-cd ../product && npm install
-cd ../basket && npm install
+cd host && pnpm install
+cd ../product && pnpm install
+cd ../basket && pnpm install
 ```
 
 ### Running the Applications
 Start each micro frontend separately:
 ```sh
 # Start Host (Next.js)
-cd host && npm run dev  # Runs on http://localhost:3000
+cd host && pnpm run dev  # Runs on http://localhost:3000
 
 # Start Product (Next.js)
-cd ../product && npm run dev  # Runs on http://localhost:3001
+cd ../product && pnpm run dev  # Runs on http://localhost:3001
 
 # Start Basket (React.js)
-cd ../basket && npm run dev  # Runs on http://localhost:3002
+cd ../basket && pnpm run dev  # Runs on http://localhost:3002
 ```
 
 
