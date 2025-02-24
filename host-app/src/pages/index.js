@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy } from "react";
 import dynamic from "next/dynamic";
-import { Button, Drawer } from "antd";
+import { Drawer } from "antd";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
-  const dispatch = useDispatch(); // Use dispatch to dispatch actions
+  const dispatch = useDispatch();
   const visible = useSelector((state) => state.drawer.visible);
   const onClose = () => {
     dispatch({ type: 'drawer/closeDrawer' })
@@ -35,7 +35,6 @@ export default function Home() {
       </Head>
       <div className={`${geistSans.variable} ${geistMono.variable}`}>
         <ProductList />
-        {/* Drawer component */}
         <Drawer
           title="Your Cart"
           placement="right"
@@ -44,7 +43,7 @@ export default function Home() {
           visible={visible}
         >
           <Suspense fallback="Loading Cart...">
-            <CartList /> {/* Cart content goes here */}
+            <CartList />
           </Suspense>
         </Drawer>
       </div>

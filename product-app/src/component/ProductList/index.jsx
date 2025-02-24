@@ -62,9 +62,7 @@ const ProductList = () => {
             }} />
           )}
         </Col>
-
       </Row>
-
       <div style={{ marginTop: "70px" }}>
         <Row gutter={[16, 16]}>
           {products.map((product) => {
@@ -116,7 +114,6 @@ const ProductList = () => {
                     >
                       Add to Cart
                     </Button>
-
                   )}
                 </Card>
               </Col>

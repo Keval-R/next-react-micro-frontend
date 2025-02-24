@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Space, Table, Typography, } from "antd";
@@ -25,13 +24,12 @@ const Cart = () => {
     dispatch({ type: "products/decreaseQuantity", payload: productId });
   };
 
-  // Table column definitions
   const columns = [
     {
       title: "Name",
       dataIndex: "title",
       key: "title",
-      width: "200px", // Adjusted width for readability
+      width: "200px",
       render: (text) => (
         <Text
           style={{
@@ -50,7 +48,7 @@ const Cart = () => {
       title: "Category",
       dataIndex: "category",
       key: "category",
-      width: "150px", // Adjusted width
+      width: "150px",
     },
     {
       title: "Image",
@@ -102,18 +100,16 @@ const Cart = () => {
 
   return (
     <div>
-      {/* If the cart is empty, show a message */}
       {products.length === 0 ? (
         <div style={{ textAlign: "center", padding: "50px 0" }}>
           <span>No products in the cart</span>
         </div>
       ) : (
-        // Show the table with product list
         <Table
           columns={columns}
-          scroll={{ x: "max-content" }} // Allow horizontal scroll if needed
+          scroll={{ x: "max-content" }}
           dataSource={products}
-          rowKey="id" // Ensure each row has a unique key
+          rowKey="id"
         />
       )}
     </div>
