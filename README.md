@@ -32,7 +32,7 @@ cd host && npm run dev  # Runs on http://localhost:3000
 cd ../product && npm run dev  # Runs on http://localhost:3001
 
 # Start Basket (React.js)
-cd ../basket && npm dev  # Runs on http://localhost:3002
+cd ../basket && npm run dev  # Runs on http://localhost:3002
 ```
 
 
